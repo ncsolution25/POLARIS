@@ -1,262 +1,223 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Polaris Beauty Bar Parlor — Dodoma</title>
+  <meta name="description" content="Premium manicures, pedicures, nail art, and lash extensions in Dodoma. View our services and prices and book via WhatsApp or phone." />
+  <meta property="og:title" content="Polaris Beauty Bar Parlor — Dodoma" />
+  <meta property="og:description" content="Premium manicures, pedicures, nail art, and lash extensions in Dodoma." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <!-- Tailwind CSS via CDN (no build step needed) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Small enhancements for nicer look without external assets */
+    .glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); }
+    .price-card li { display:flex; justify-content:space-between; padding:0.6rem 0; }
+    .price-card li + li { border-top: 1px solid rgba(0,0,0,0.06); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 text-zinc-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl shadow grid place-items-center bg-black text-white text-sm font-semibold">P</div>
+        <div>
+          <p class="text-[10px] uppercase tracking-widest text-zinc-500">Polaris</p>
+          <h1 class="text-lg md:text-xl font-semibold -mt-1">Beauty Bar Parlor</h1>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-4 text-sm">
+        <a href="#prices" class="hover:underline">Prices</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="tel:+255752659508" class="px-4 py-2 rounded-full bg-zinc-900 text-white hover:bg-zinc-800 transition-colors">Call Now</a>
+        <a href="https://wa.me/255752659508" target="_blank" rel="noreferrer" class="px-4 py-2 rounded-full border border-zinc-900/10 hover:bg-white">WhatsApp</a>
+      </div>
+    </div>
+  </header>
 
-// Polaris Beauty Bar Parlor – Landing Page
-// TailwindCSS utility classes are used for styling.
-// Replace logoSrc with your actual logo path if available.
-
-const logoSrc = "https://dummyimage.com/64x64/000/fff.png&text=P"; // placeholder logo
-
-const PRICES = {
-  manicure: [
-    { name: "Acrylic Powder", price: "35,000/= – 55,000/=" },
-    { name: "Polygel", price: "30,000/= – 50,000/=" },
-    { name: "Builder", price: "25,000/= – 45,000/=" },
-    { name: "Nail Extension & Gel Polish", price: "20,000/= – 30,000/=" },
-    { name: "Gel Polish", price: "10,000/= – 20,000/=" },
-    { name: "Nail Extension Regular Polish", price: "10,000/=" },
-    { name: "Regular Polish", price: "5,000/=" },
-    { name: "Henna", price: "5,000/=" },
-  ],
-  pedicure: [
-    { name: "Zanzibar Spa Pedicure", price: "40,000/=" },
-    { name: "Polaris Spa Pedicure", price: "30,000/=" },
-    { name: "Men Spa Pedicure", price: "30,000/=" },
-    { name: "Nail Extension & Gel Polish", price: "20,000/= – 30,000/=" },
-    { name: "Gel Polish", price: "10,000/= – 20,000/=" },
-    { name: "Nail Extension Regular Polish", price: "10,000/= – 20,000/=" },
-    { name: "Feet Exfoliation", price: "10,000/=" },
-    { name: "Regular Polish", price: "5,000/=" },
-  ],
-  nailArt: [
-    { name: "Press-On Nails", price: "15,000/=" },
-    { name: "Basic Nail Art", price: "10,000/=" },
-    { name: "French Nail Design", price: "10,000/=" },
-    { name: "Chrome Nails", price: "10,000/=" },
-    { name: "3D Nails", price: "10,000/=" },
-    { name: "Nail Painting", price: "10,000/= – 20,000/=" },
-    { name: "Nail Art Removal", price: "5,000/=" },
-  ],
-  additional: [
-    { name: "Nail Polish Change", price: "5,000/= – 55,000/=" },
-    { name: "Nail Repair", price: "5,000/= – 10,000/=" },
-    { name: "Nail Removal", price: "5,000/=" },
-  ],
-  packages: [
-    { name: "Bridal Bliss", price: "110,000/=" },
-    { name: "Glamour Queen", price: "100,000/=" },
-  ],
-  lashes: [
-    { name: "Mega Volume Set", price: "55,000/=" },
-    { name: "Volume Set", price: "45,000/=" },
-    { name: "Hybrid Set", price: "35,000/=" },
-    { name: "Classic Set", price: "25,000/=" },
-    { name: "Korean Lash Lift", price: "25,000/=" },
-    { name: "Lash Refill", price: "15,000/=" },
-    { name: "Strip Lashes", price: "10,000/=" },
-    { name: "Lash Removal", price: "5,000/= – 10,000/=" },
-  ],
-  mobile: [
-    { name: "Extra Service Charge (Mobile/Home)", price: "25,000/= – 45,000/=" },
-  ],
-};
-
-const CONTACT = {
-  phone: "+255752659508",
-  email: "polarisnailbar@gmail.com",
-  addressLine: "Opposite St. Gasper Hotel & Conference near DM Restaurant",
-  city: "Dodoma, Tanzania",
-  instagram: "https://instagram.com/Polaris_beautybar_parlor",
-  twitter: "https://twitter.com/search?q=Nail%20bar%20Polaris", // corrected to a searchable link
-  tiktok: "https://www.tiktok.com/search?q=Polaris_nailbar_parlor",
-  facebook: "https://facebook.com/Polaris_nailbar",
-};
-
-function SectionCard({ title, items }) {
-  return (
-    <section className="relative rounded-2xl border border-white/10 bg-white/60 backdrop-blur-sm shadow-sm p-6 hover:shadow-md transition-shadow">
-      <h3 className="text-xl font-semibold tracking-tight mb-4">{title}</h3>
-      <ul className="divide-y divide-black/5">
-        {items.map((it, idx) => (
-          <li key={idx} className="flex items-center justify-between py-3">
-            <span className="text-sm md:text-base">{it.name}</span>
-            <span className="font-medium tabular-nums text-sm md:text-base">{it.price}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
-function SocialLink({ href, label }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-full border border-black/10 hover:border-black/30 hover:bg-white transition-colors"
-      aria-label={label}
-    >
-      <span className="i">★</span>
-      <span>{label}</span>
-    </a>
-  );
-}
-
-export default function PolarisBeautyBarLandingPage() {
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 text-zinc-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/50 bg-white/70 border-b border-black/5">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={logoSrc} alt="Polaris logo" className="w-10 h-10 rounded-xl shadow" />
-            <div>
-              <p className="text-xs uppercase tracking-widest text-zinc-500">Polaris</p>
-              <h1 className="text-lg md:text-xl font-semibold -mt-1">Beauty Bar Parlor</h1>
-            </div>
-          </div>
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href={`tel:${CONTACT.phone}`}
-              className="px-4 py-2 rounded-full bg-zinc-900 text-white hover:bg-zinc-800 transition-colors"
-            >
-              Call Now
-            </a>
-            <a
-              href={`https://wa.me/${CONTACT.phone.replace(/[^\d]/g, "")}`}
-              target="_blank"
-              rel="noreferrer"
-              className="px-4 py-2 rounded-full border border-zinc-900/10 hover:bg-white"
-            >
-              WhatsApp
-            </a>
+  <!-- Hero -->
+  <section class="relative">
+    <div class="max-w-6xl mx-auto px-4 py-14 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <span class="inline-flex items-center px-3 py-1 rounded-full glass border border-black/10 text-xs mb-4">Nails • Lashes • Spa</span>
+        <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+          Shine bright with <span class="underline decoration-pink-300 decoration-4 underline-offset-4">Polaris</span>
+        </h2>
+        <p class="mt-4 text-base md:text-lg text-zinc-700">
+          Expert manicures, pedicures, nail art, and lash extensions in the heart of Dodoma. Book your glow‑up today.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#prices" class="px-5 py-3 rounded-xl bg-zinc-900 text-white hover:bg-zinc-800">View Prices</a>
+          <a href="mailto:polarisnailbar@gmail.com" class="px-5 py-3 rounded-xl border border-zinc-900/10 hover:bg-white">Email Us</a>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3 text-sm">
+          <a href="https://instagram.com/Polaris_beautybar_parlor" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-black/10 hover:border-black/30 glass">★ <span>Instagram</span></a>
+          <a href="https://facebook.com/Polaris_nailbar" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-black/10 hover:border-black/30 glass">★ <span>Facebook</span></a>
+          <a href="https://www.tiktok.com/search?q=Polaris_nailbar_parlor" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-black/10 hover:border-black/30 glass">★ <span>TikTok</span></a>
+          <a href="https://twitter.com/search?q=Nail%20bar%20Polaris" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-black/10 hover:border-black/30 glass">★ <span>Twitter/X</span></a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] rounded-3xl glass border border-black/10 shadow-inner flex items-center justify-center p-6">
+          <div class="text-center">
+            <div class="text-7xl">💅</div>
+            <p class="mt-3 text-sm text-zinc-600">Pamper yourself with premium nail & lash services</p>
           </div>
         </div>
-      </header>
+      </div>
+    </div>
+  </section>
 
-      {/* Hero */}
-      <section className="relative">
-        <div className="max-w-6xl mx-auto px-4 py-14 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+  <!-- Prices -->
+  <section id="prices" class="relative py-12 md:py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8">Our Services & Prices</h2>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Manicure Services -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Manicure Services</h3>
+          <ul class="price-card">
+            <li><span>Acrylic Powder</span><span class="font-medium tabular-nums">35,000/= – 55,000/=</span></li>
+            <li><span>Polygel</span><span class="font-medium tabular-nums">30,000/= – 50,000/=</span></li>
+            <li><span>Builder</span><span class="font-medium tabular-nums">25,000/= – 45,000/=</span></li>
+            <li><span>Nail Extension &amp; Gel Polish</span><span class="font-medium tabular-nums">20,000/= – 30,000/=</span></li>
+            <li><span>Gel Polish</span><span class="font-medium tabular-nums">10,000/= – 20,000/=</span></li>
+            <li><span>Nail Extension Regular Polish</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>Regular Polish</span><span class="font-medium tabular-nums">5,000/=</span></li>
+            <li><span>Henna</span><span class="font-medium tabular-nums">5,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Pedicure Services -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Pedicure Services</h3>
+          <ul class="price-card">
+            <li><span>Zanzibar Spa Pedicure</span><span class="font-medium tabular-nums">40,000/=</span></li>
+            <li><span>Polaris Spa Pedicure</span><span class="font-medium tabular-nums">30,000/=</span></li>
+            <li><span>Men Spa Pedicure</span><span class="font-medium tabular-nums">30,000/=</span></li>
+            <li><span>Nail Extension &amp; Gel Polish</span><span class="font-medium tabular-nums">20,000/= – 30,000/=</span></li>
+            <li><span>Gel Polish</span><span class="font-medium tabular-nums">10,000/= – 20,000/=</span></li>
+            <li><span>Nail Extension Regular Polish</span><span class="font-medium tabular-nums">10,000/= – 20,000/=</span></li>
+            <li><span>Feet Exfoliation</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>Regular Polish</span><span class="font-medium tabular-nums">5,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Nail Art & Design -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Nail Art &amp; Design</h3>
+          <ul class="price-card">
+            <li><span>Press-On Nails</span><span class="font-medium tabular-nums">15,000/=</span></li>
+            <li><span>Basic Nail Art</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>French Nail Design</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>Chrome Nails</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>3D Nails</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>Nail Painting</span><span class="font-medium tabular-nums">10,000/= – 20,000/=</span></li>
+            <li><span>Nail Art Removal</span><span class="font-medium tabular-nums">5,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Additional Services -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Additional Services</h3>
+          <ul class="price-card">
+            <li><span>Nail Polish Change</span><span class="font-medium tabular-nums">5,000/= – 55,000/=</span></li>
+            <li><span>Nail Repair</span><span class="font-medium tabular-nums">5,000/= – 10,000/=</span></li>
+            <li><span>Nail Removal</span><span class="font-medium tabular-nums">5,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Special Packages -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Special Packages</h3>
+          <ul class="price-card">
+            <li><span>Bridal Bliss</span><span class="font-medium tabular-nums">110,000/=</span></li>
+            <li><span>Glamour Queen</span><span class="font-medium tabular-nums">100,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Lash Extension Services -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Lash Extension Services</h3>
+          <ul class="price-card">
+            <li><span>Mega Volume Set</span><span class="font-medium tabular-nums">55,000/=</span></li>
+            <li><span>Volume Set</span><span class="font-medium tabular-nums">45,000/=</span></li>
+            <li><span>Hybrid Set</span><span class="font-medium tabular-nums">35,000/=</span></li>
+            <li><span>Classic Set</span><span class="font-medium tabular-nums">25,000/=</span></li>
+            <li><span>Korean Lash Lift</span><span class="font-medium tabular-nums">25,000/=</span></li>
+            <li><span>Lash Refill</span><span class="font-medium tabular-nums">15,000/=</span></li>
+            <li><span>Strip Lashes</span><span class="font-medium tabular-nums">10,000/=</span></li>
+            <li><span>Lash Removal</span><span class="font-medium tabular-nums">5,000/= – 10,000/=</span></li>
+          </ul>
+        </section>
+
+        <!-- Mobile/Home Service -->
+        <section class="relative rounded-2xl border border-white/10 glass shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold tracking-tight mb-4">Mobile / Home Service</h3>
+          <ul class="price-card">
+            <li><span>Extra Service Charge</span><span class="font-medium tabular-nums">25,000/= – 45,000/=</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="mt-10 rounded-2xl glass border border-black/10 p-6">
+        <p class="text-sm text-zinc-700">
+          Prices shown are in TZS and may vary with customizations. For group bookings or bridal packages, please contact us for a tailored quote.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Location -->
+  <section id="contact" class="relative py-12 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+      <div class="rounded-2xl glass border border-black/10 p-6">
+        <h3 class="text-xl font-semibold mb-4">Visit Us</h3>
+        <p class="text-zinc-700">
+          Opposite St. Gasper Hotel &amp; Conference near DM Restaurant<br/>
+          Dodoma, Tanzania
+        </p>
+        <div class="mt-4 space-y-2 text-sm">
+          <p><span class="font-medium">Phone: </span><a href="tel:+255752659508" class="underline hover:no-underline">+255752659508</a></p>
+          <p><span class="font-medium">Email: </span><a href="mailto:polarisnailbar@gmail.com" class="underline hover:no-underline">polarisnailbar@gmail.com</a></p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://wa.me/255752659508" target="_blank" rel="noreferrer" class="px-4 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700">Chat on WhatsApp</a>
+          <a href="tel:+255752659508" class="px-4 py-2 rounded-xl border border-black/10 hover:bg-white">Call to Book</a>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-black/10 glass">
+        <div class="aspect-[4/3] w-full grid place-items-center text-center p-6">
           <div>
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/70 border border-black/10 text-xs mb-4">Nails • Lashes • Spa</span>
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              Shine bright with <span className="underline decoration-pink-300 decoration-4 underline-offset-4">Polaris</span>
-            </h2>
-            <p className="mt-4 text-base md:text-lg text-zinc-700">
-              Expert manicures, pedicures, nail art, and lash extensions in the heart of Dodoma. Book your glow‑up today.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#prices" className="px-5 py-3 rounded-xl bg-zinc-900 text-white hover:bg-zinc-800">View Prices</a>
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className="px-5 py-3 rounded-xl border border-zinc-900/10 hover:bg-white"
-              >
-                Email Us
-              </a>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <SocialLink href={CONTACT.instagram} label="Instagram" />
-              <SocialLink href={CONTACT.facebook} label="Facebook" />
-              <SocialLink href={CONTACT.tiktok} label="TikTok" />
-              <SocialLink href={CONTACT.twitter} label="Twitter/X" />
-            </div>
-          </div>
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-3xl bg-white/70 border border-black/10 shadow-inner flex items-center justify-center p-6">
-              <div className="text-center">
-                <p className="text-7xl">💅</p>
-                <p className="mt-3 text-sm text-zinc-600">Pamper yourself with premium nail & lash services</p>
-              </div>
-            </div>
+            <div class="text-5xl">📍</div>
+            <p class="mt-2 text-sm text-zinc-600">Opposite St. Gasper Hotel &amp; Conference near DM Restaurant</p>
+            <p class="text-sm text-zinc-600">Dodoma, Tanzania</p>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      {/* Prices */}
-      <section id="prices" className="relative py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-8">Our Services & Prices</h2>
+  <!-- Footer -->
+  <footer class="border-t border-black/5 glass">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-zinc-600 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> Polaris Beauty Bar Parlor. All rights reserved.</p>
+      <div class="flex items-center gap-3">
+        <a href="#prices" class="underline hover:no-underline">View Prices</a>
+        <span aria-hidden>·</span>
+        <a href="#contact" class="underline hover:no-underline">Contact</a>
+      </div>
+    </div>
+  </footer>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <SectionCard title="Manicure Services" items={PRICES.manicure} />
-            <SectionCard title="Pedicure Services" items={PRICES.pedicure} />
-            <SectionCard title="Nail Art & Design" items={PRICES.nailArt} />
-            <SectionCard title="Additional Services" items={PRICES.additional} />
-            <SectionCard title="Special Packages" items={PRICES.packages} />
-            <SectionCard title="Lash Extension Services" items={PRICES.lashes} />
-            <SectionCard title="Mobile / Home Service" items={PRICES.mobile} />
-          </div>
-
-          <div className="mt-10 rounded-2xl bg-white/70 border border-black/10 p-6">
-            <p className="text-sm text-zinc-700">
-              Prices shown are in TZS and may vary with customizations. For group bookings or bridal packages, please contact us for a tailored quote.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Location & Contact */}
-      <section id="contact" className="relative py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-          <div className="rounded-2xl bg-white/70 border border-black/10 p-6">
-            <h3 className="text-xl font-semibold mb-4">Visit Us</h3>
-            <p className="text-zinc-700">
-              {CONTACT.addressLine}
-              <br />
-              {CONTACT.city}
-            </p>
-            <div className="mt-4 space-y-2 text-sm">
-              <p>
-                <span className="font-medium">Phone: </span>
-                <a href={`tel:${CONTACT.phone}`} className="underline hover:no-underline">{CONTACT.phone}</a>
-              </p>
-              <p>
-                <span className="font-medium">Email: </span>
-                <a href={`mailto:${CONTACT.email}`} className="underline hover:no-underline">{CONTACT.email}</a>
-              </p>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={`https://wa.me/${CONTACT.phone.replace(/[^\d]/g, "")}`}
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700"
-              >
-                Chat on WhatsApp
-              </a>
-              <a
-                href={`tel:${CONTACT.phone}`}
-                className="px-4 py-2 rounded-xl border border-black/10 hover:bg-white"
-              >
-                Call to Book
-              </a>
-            </div>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden border border-black/10 bg-white/60">
-            {/* Simple map placeholder – swap with an embedded Google Map if desired */}
-            <div className="aspect-[4/3] w-full grid place-items-center text-center p-6">
-              <div>
-                <div className="text-5xl">📍</div>
-                <p className="mt-2 text-sm text-zinc-600">Opposite St. Gasper Hotel & Conference near DM Restaurant</p>
-                <p className="text-sm text-zinc-600">Dodoma, Tanzania</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-black/5 bg-white/70">
-        <div className="max-w-6xl mx-auto px-4 py-8 text-sm text-zinc-600 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Polaris Beauty Bar Parlor. All rights reserved.</p>
-          <div className="flex items-center gap-3">
-            <a href="#prices" className="underline hover:no-underline">View Prices</a>
-            <span aria-hidden>·</span>
-            <a href="#contact" className="underline hover:no-underline">Contact</a>
-          </div>
-        </div>
-      </footer>
-    </main>
-  );
-}
+  <script>
+    // Set the current year in the footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
